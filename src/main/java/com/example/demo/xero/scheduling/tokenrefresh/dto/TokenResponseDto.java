@@ -1,4 +1,4 @@
-package com.example.demo.xero.scheduling.tokenrefresh;
+package com.example.demo.xero.scheduling.tokenrefresh.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

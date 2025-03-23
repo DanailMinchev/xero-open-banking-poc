@@ -37,5 +37,6 @@ logging:
 
 app:
   xero:
+    apiUrl: ${XERO_API_URL:https://api.xero.com}
     client-id: ${XERO_CLIENT_ID}
     client-secret: ${XERO_CLIENT_SECRET}

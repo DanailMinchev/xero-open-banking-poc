@@ -1,5 +1,6 @@
 package com.example.demo.xero.scheduling.tokenrefresh;
 
+import com.example.demo.xero.scheduling.tokenrefresh.dto.TokenResponseDto;
 import com.example.demo.xero.security.domain.XeroOAuth2AuthorizedClientEntity;
 import com.example.demo.xero.security.repository.XeroOAuth2AuthorizedClientRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TokenRefreshService {
+public class TokenRefreshScheduler {
 
     private final XeroOAuth2AuthorizedClientRepository xeroOAuth2AuthorizedClientRepository;
 
@@ -36,9 +37,10 @@ public class TokenRefreshService {
 
     // TODO: adjust according the volume of clients and API rate limits
     // https://developer.xero.com/documentation/guides/oauth2/limits/#api-rate-limits
-    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.HOURS)
+    // TODO: delegate access token refresh to clients
+    @Scheduled(fixedRate = 15, timeUnit = TimeUnit.MINUTES)
     public void refreshToken() {
-        log.info("Started Xero token refresh scheduled task");
+        log.info("Started 'Xero token refresh' scheduled task");
 
         Page<XeroOAuth2AuthorizedClientEntity> page = xeroOAuth2AuthorizedClientRepository.findAll(PageRequest.of(
                 0,
@@ -73,7 +75,7 @@ public class TokenRefreshService {
             xeroOAuth2AuthorizedClientRepository.save(entity);
         }
 
-        log.info("Finished Xero token refresh scheduled task");
+        log.info("Finished 'Xero token refresh' scheduled task");
     }
 
 }

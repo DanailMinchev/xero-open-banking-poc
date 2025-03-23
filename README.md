@@ -19,4 +19,5 @@ Token expiry times:
 
 1. Create a `User` registration and onboarding flow, so that the user can register / login and connect Xero and GoCardless accounts.
    User will be associated with `com.example.demo.xero.security.domain.XeroOAuth2AuthorizedClientEntity`.
-2. Check `TODO` in the code
+2. Change the schedulers to be lockable (using database)
+3. Check `TODO` in the code
