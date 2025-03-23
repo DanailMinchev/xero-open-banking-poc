@@ -28,12 +28,19 @@ public class XeroBankTransactionImportService {
 
         try {
             List<Connection> connections = xeroClientFacade.getConnections();
+            log.info("Connections: {}", connections);
 
             Connection firstConnection = connections.getFirst();
-            log.info("Connection: {}", firstConnection);
+            log.info("First connection: {}", firstConnection);
 
             List<BankAccount> bankAccounts = xeroClientFacade.getBankAccounts(firstConnection.getTenantId());
             log.info("Bank accounts: {}", bankAccounts);
+
+            BankAccount firstBankAccount = bankAccounts.getFirst();
+            log.info("First bank account: {}", firstBankAccount);
+
+            // TODO:
+            xeroClientFacade.createBankTransaction(firstConnection.getTenantId(), firstBankAccount.getAccountId());
         } catch (Exception exception) {
             log.info("Error calling Xero operation", exception);
         }

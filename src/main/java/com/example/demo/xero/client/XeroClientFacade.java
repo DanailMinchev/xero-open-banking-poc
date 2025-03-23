@@ -39,4 +39,8 @@ public class XeroClientFacade {
                 .toList();
     }
 
+    public void createBankTransaction(String xeroTenantId, String accountId) throws IOException {
+        xeroClientWrapper.createBankTransaction(xeroTenantId, accountId);
+    }
+
 }
