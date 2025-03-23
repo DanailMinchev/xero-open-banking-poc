@@ -1,3 +1,41 @@
 spring:
   application:
     name: Demo
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          xero-client:
+            client-name: xero-client
+            provider: xero-provider
+            client-id: ${XERO_CLIENT_ID}
+            client-secret: ${XERO_CLIENT_SECRET}
+            scope: "offline_access,accounting.transactions,openid,profile,email,accounting.contacts,accounting.settings"
+            authorization-grant-type: authorization_code
+            redirect-uri: ${XERO_REDIRECT_URI:http://localhost:8080/login/oauth2/code/xero}
+        provider:
+          xero-provider:
+            issuer-uri: https://identity.xero.com
+#            authorization-uri: https://login.xero.com/identity/connect/authorize
+#            token-uri: https://identity.xero.com/connect/token
+#            jwk-set-uri: https://identity.xero.com/connect/jwks
+#            user-info-uri: https://identity.xero.com/connect/userinfo
+logging:
+  level:
+    org.springframework.security: debug
+    org.hibernate.sql: debug
+#    com.example.demo: debug
+
+app:
+  xero:
+    client-id: ${XERO_CLIENT_ID}
+    client-secret: ${XERO_CLIENT_SECRET}
