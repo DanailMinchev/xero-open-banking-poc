@@ -2,6 +2,7 @@ package com.example.demo.xero.service;
 
 import com.example.demo.xero.client.XeroClientFacade;
 import com.example.demo.xero.client.XeroClientFactory;
+import com.example.demo.xero.client.model.BankAccount;
 import com.example.demo.xero.client.model.Connection;
 import com.example.demo.xero.security.domain.XeroOAuth2AuthorizedClientEntity;
 import com.example.demo.xero.security.repository.XeroOAuth2AuthorizedClientRepository;
@@ -29,9 +30,12 @@ public class XeroBankTransactionImportService {
             List<Connection> connections = xeroClientFacade.getConnections();
 
             Connection firstConnection = connections.getFirst();
-            System.out.println(firstConnection.getTenantId());
+            log.info("Connection: {}", firstConnection);
+
+            List<BankAccount> bankAccounts = xeroClientFacade.getBankAccounts(firstConnection.getTenantId());
+            log.info("Bank accounts: {}", bankAccounts);
         } catch (Exception exception) {
-            log.info("Error calling getConnections() operation", exception);
+            log.info("Error calling Xero operation", exception);
         }
     }
 

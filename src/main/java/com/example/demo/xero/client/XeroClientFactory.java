@@ -15,13 +15,21 @@ public class XeroClientFactory {
 
     public XeroClientFacade getClientFor(String accessToken) {
         return clients.computeIfAbsent(accessToken, token -> {
-            XeroClientWrapper clientWrapper = new XeroClientWrapper(createApiClient(), token);
+            XeroClientWrapper clientWrapper = new XeroClientWrapper(
+                    createRootPathApiClient(),
+                    createApiXro2Point0PathApiClient(),
+                    token
+            );
             return new XeroClientFacade(clientWrapper);
         });
     }
 
-    private ApiClient createApiClient() {
+    private ApiClient createRootPathApiClient() {
         return new ApiClient(apiUrl, null, null, null, null);
+    }
+
+    private ApiClient createApiXro2Point0PathApiClient() {
+        return new ApiClient(apiUrl + "/api.xro/2.0", null, null, null, null);
     }
 
 }

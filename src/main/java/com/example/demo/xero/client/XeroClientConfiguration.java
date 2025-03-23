@@ -8,11 +8,12 @@ import org.springframework.context.annotation.Configuration;
 class XeroClientConfiguration {
 
     @Value("${app.xero.apiUrl}")
-    private String clientId;
+    private String apiUrl;
 
     @Bean
     public XeroClientFactory xeroClientFactory() {
-        return new XeroClientFactory(clientId);
+        String apiUrlWithoutTrailingSlash = apiUrl.replaceFirst("/*$", "");
+        return new XeroClientFactory(apiUrlWithoutTrailingSlash);
     }
 
 }

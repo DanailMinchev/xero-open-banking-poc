@@ -1,5 +1,6 @@
 package com.example.demo.xero.client;
 
+import com.example.demo.xero.client.model.BankAccount;
 import com.example.demo.xero.client.model.Connection;
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,21 @@ public class XeroClientFacade {
                 .map(xeroConnection -> Connection.builder()
                         .id(xeroConnection.getId().toString())
                         .tenantId(xeroConnection.getTenantId().toString())
+                        .build())
+                .toList();
+    }
+
+    public List<BankAccount> getBankAccounts(String xeroTenantId) throws IOException {
+        String whereClause = "Status==\"ACTIVE\" && Type==\"BANK\"";
+        String orderClause = "Name ASC";
+
+        return xeroClientWrapper.getAccounts(xeroTenantId, null, whereClause, orderClause)
+                .stream()
+                .map(account -> BankAccount.builder()
+                        .code(account.getCode())
+                        .name(account.getName())
+                        .accountId(account.getAccountID().toString())
+                        .bankAccountNumber(account.getBankAccountNumber())
                         .build())
                 .toList();
     }
