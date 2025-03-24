@@ -18,6 +18,7 @@ public class XeroClientFactory {
             XeroClientWrapper clientWrapper = new XeroClientWrapper(
                     createRootPathApiClient(),
                     createApiXro2Point0PathApiClient(),
+                    createBankfeedsXro1Point0PathApiClient(),
                     token
             );
             return new XeroClientFacade(clientWrapper);
@@ -30,6 +31,10 @@ public class XeroClientFactory {
 
     private ApiClient createApiXro2Point0PathApiClient() {
         return new ApiClient(apiUrl + "/api.xro/2.0", null, null, null, null);
+    }
+
+    private ApiClient createBankfeedsXro1Point0PathApiClient() {
+        return new ApiClient(apiUrl + "/bankfeeds.xro/1.0", null, null, null, null);
     }
 
 }

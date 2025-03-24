@@ -19,7 +19,7 @@ spring:
             provider: xero-provider
             client-id: ${XERO_CLIENT_ID}
             client-secret: ${XERO_CLIENT_SECRET}
-            scope: "offline_access,accounting.transactions,openid,profile,email,accounting.contacts,accounting.settings"
+            scope: "offline_access,accounting.transactions,openid,profile,email,accounting.contacts,accounting.settings,bankfeeds"
             authorization-grant-type: authorization_code
             redirect-uri: ${XERO_REDIRECT_URI:http://localhost:8080/}
         provider:

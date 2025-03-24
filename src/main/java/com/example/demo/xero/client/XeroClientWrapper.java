@@ -2,12 +2,14 @@ package com.example.demo.xero.client;
 
 import com.xero.api.ApiClient;
 import com.xero.api.client.AccountingApi;
+import com.xero.api.client.BankFeedsApi;
 import com.xero.api.client.IdentityApi;
 import com.xero.models.accounting.Account;
 import com.xero.models.accounting.Accounts;
 import com.xero.models.accounting.BankTransaction;
 import com.xero.models.accounting.BankTransactions;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.bankfeeds.FeedConnections;
 import com.xero.models.identity.Connection;
 import lombok.RequiredArgsConstructor;
 import org.threeten.bp.OffsetDateTime;
@@ -22,6 +24,8 @@ class XeroClientWrapper {
     private final ApiClient rootPathApiClient;
 
     private final ApiClient apiXro2Point0PathApiClient;
+
+    private final ApiClient bankfeedsXro1Point0PathApiClient;
 
     private final String accessToken;
 
@@ -40,6 +44,12 @@ class XeroClientWrapper {
         Accounts accounts = accountingApi.getAccounts(accessToken, xeroTenantId, ifModifiedSince, whereClause, orderClause);
 
         return accounts.getAccounts();
+    }
+
+    // TODO: finish the implementation with the return type
+    public void getConnections(String xeroTenantId, Integer page, Integer pageSize) throws IOException {
+        BankFeedsApi bankFeedsApi = new BankFeedsApi(bankfeedsXro1Point0PathApiClient);
+        FeedConnections feedConnections = bankFeedsApi.getFeedConnections(accessToken, xeroTenantId, page, pageSize);
     }
 
     public void createBankTransaction(String xeroTenantId, String accountId) throws IOException {

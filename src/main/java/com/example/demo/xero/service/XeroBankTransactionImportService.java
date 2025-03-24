@@ -41,6 +41,8 @@ public class XeroBankTransactionImportService {
 
             // TODO:
             xeroClientFacade.createBankTransaction(firstConnection.getTenantId(), firstBankAccount.getAccountId());
+            // TODO:
+            xeroClientFacade.getConnections(firstConnection.getTenantId(), 0, 10);
         } catch (Exception exception) {
             log.info("Error calling Xero operation", exception);
         }

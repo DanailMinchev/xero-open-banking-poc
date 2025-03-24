@@ -43,4 +43,8 @@ public class XeroClientFacade {
         xeroClientWrapper.createBankTransaction(xeroTenantId, accountId);
     }
 
+    public void getConnections(String xeroTenantId, Integer page, Integer pageSize) throws IOException {
+        xeroClientWrapper.getConnections(xeroTenantId, page, pageSize);
+    }
+
 }
